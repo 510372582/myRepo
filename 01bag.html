@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+
+    </style>
+    <script>
+        $(function(){
+            //01背包问题
+			////假设编号分别为a,b,c,d,e的五件物品，重量分别是2,2,6,5,4，价值分别是6,3,5,4,6，现在有一个承重为10的背包，如何装入物品具有最大价值？
+            var w=10;
+            var arr1=[2,2,6,5,4];
+            var arr2=[6,3,5,4,6];
+            var max=[];
+            for(var i=0;i<arr1.length;i++){
+                max[i]=[];
+                for(var j=0;j<=w;j++){
+                    if(i === 0) {
+                        max[i][j] = j < arr1[i] ? 0 : arr2[i];
+                    }else{
+                        if(j<arr1[i]){
+                            max[i][j]=max[i-1][j];
+                        }else{
+                            max[i][j]=Math.max( max[i-1][j],max[i-1][j-arr1[i]]+arr2[i]);
+                        }
+                    }
+
+                }
+            }
+            console.log(max[arr1.length-1][w]);
+        })
+
+    </script>
+</head>
+
+<body>
+<div class='div'> 春花秋月何时了？ 往事知多少？小楼昨夜又东风，故国不堪回首月明中。 雕栏玉砌应犹在，只是朱颜改。 问君能有几多愁？恰似一江春水向东流。</div>
+</body>
+</html>
