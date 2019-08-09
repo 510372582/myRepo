@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+
+    </style>
+    <script>
+	 //升序排列数组(sort函数)
+            var arr=new Array("23","6","12","35","76");
+            document.write(arr.sort(numberSort));
+            console.log(arr.sort(numberSort));
+        function numberSort(a,b)
+        {
+            return a - b;//a-b>0,则位置交换，a-b<=0则位置不变
+        }
+		//快排
+        function quickSort(arr){
+            // console.log(arr);
+            // var arr=[1,3,2,5,4,6,0];
+            if(arr.length<=1){ return arr;}
+            // var index=Math.floor(arr.length/2);
+            var temp=arr.splice(0,1)[0];
+            console.log(arr);
+            console.log(temp);
+            var left=[];
+            var right=[];
+            for(var i=0;i<arr.length;i++){
+                if(arr[i]<temp){
+                    left.push(arr[i]);
+                }
+                else{
+                    right.push(arr[i]);
+                }
+            }
+            return quickSort(left).concat(temp,quickSort(right));
+        }
+        $(function(){
+            //直接插入排序
+            var arr=[1,3,2,5,4,6,0];
+            var temp;
+            for(var i=1; i<arr.length;i++){
+                temp=arr[i];
+                var j=i-1;
+                while(j>=0 && arr[j]>temp){
+                    arr[j+1]=arr[j];
+                    j--;
+                }
+                arr[j+1]=temp;
+            }
+            console.log(arr);
+            //希尔排序
+            var arr=[1,3,2,5,4,6,0];
+            for(var increment=Math.floor(arr.length/2);increment >0;increment=Math.floor(increment/2)){
+                for(var i=increment; i<arr.length;i++){
+                    var temp=arr[i];
+                    var j=i-increment;
+                    while(j>=0&& arr[j]>temp){
+                        arr[j+increment]=arr[j];
+                        j-=increment;
+                    }
+                    arr[j+increment]=temp;
+                }
+            }
+            console.log(arr);
+            //快速排序
+            console.log(quickSort([1,3,2,5,4,6,0]));
+            //选择排序
+            var arr=[1,3,2,5,4,6,0];
+            for(var i=0;i<arr.length;i++){
+                var temp=i;
+                for(var j=i;j<arr.length;j++){
+                    if(arr[j]<arr[temp]){
+                        temp=j;
+                    }
+                }
+                [arr[i],arr[temp]]=[arr[temp],arr[i]];
+
+            }
+            console.log(arr);
+		//归并排序
+		function mergeSort(arr) {
+        console.log(arr)
+        var len = arr.length;
+        if (len < 2) {
+            return arr;
+        }
+        var middle = Math.floor(len/2),
+            left = arr.slice(0, middle),
+            right = arr.slice(middle);
+        return merge(mergeSort(left), mergeSort(right))
+    }
+    function merge(left, right) {
+        var result = [];
+        console.log(left+'**'+right);
+        while (left.length && right.length) {
+            if (left[0] <= right[0]) {
+                result.push(left.shift());
+            } else {
+                result.push(right.shift());
+            }
+        }
+        while (left.length) result.push(left.shift());
+        while (right.length) result.push(right.shift());
+
+        return result;
+    }
+
+    var arr = [5, 3, 6, 8, 2, 1,0];
+    console.log(mergeSort(arr));
+
+	//堆排序
+	    var arr = [20,50,20,40,6,878,70,10,80,30,60,9,44];
+    console.log(heapSort(arr));
+    function heapSort(arr){
+        var num=arr.length-1;
+        var n=Math.floor(arr.length/2)-1;
+        for(n;n>=0;n--){
+            heapjust(arr,n,num);
+        }
+        console.log(arr);
+        while(num >= 0) {
+            [arr[0],arr[num]]=[arr[num],arr[0]]
+            num--;    //将堆顶元素与尾节点交换后，长度减1，尾元素最大
+            heapjust(arr,0,num);    //再次对堆进行调整
+            console.log(arr);
+        }
+        return arr;
+
+    }
+    function heapjust(arr,n,end){
+        var left=2*n+1;
+        var right;
+        var flag;
+        while(left<=end){ //交换位置之后，堆需要再调整
+            right=left+1;
+            flag=left;
+            if(right<=end){
+                if(arr[left]<arr[right]){
+                    flag=right;
+                }
+            }
+            if(arr[flag]>arr[n]){
+                [arr[flag],arr[n]]=[arr[n],arr[flag]]
+                n = flag;
+                left = 2*n+1;
+            }else{
+                break;
+            }
+        }
+    }
+	
+        })
+
+    </script>
+</head>
+
+<body>
+</body>
+</html>
